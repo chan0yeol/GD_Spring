@@ -1,0 +1,8 @@
+기존의 방식 
+POJO방식
+ 작성된 class를 사용하기 위해서는 new를 통해 객체를 생성하게 된다.
+
+하지만 Spring에서는 Spring Container가 관리하는 bean의 객체로 만들어서 사용해야 한다.
+   - bean을 생성하는 방법은 XML(Spring Bean Configuration) 혹은 Annotation(@Component, @Bean, @Aspect ...)
+ 생성된 Bean은 Spring Container를 통해서 ApplicationContext를 통해서 이름으로 호출
+   

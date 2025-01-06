@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- default로 생성된 Employee -->
+	<bean id="myAddr01" class="com.min.edu.bean02.Employee"/>
+	
+	<!-- class의 getter/setter 메소드를 통해서 객체 값을 입력 -->
+	<bean id="myAddr02" class="com.min.edu.bean02.Employee"
+		scope="singleton">
+		<property name="addr" value="안메리" />
+		<property name="name" value="영국" />
+		<property name="phone" value="00" />
+	</bean>
+	<bean id="myAddr03" class="com.min.edu.bean02.Employee"
+		scope="singleton">
+		<property name="addr" value="한국" />
+		<property name="name" value="또치" />
+		<property name="phone" value="010" />
+	</bean>
+	
+	<bean id="dev" class="com.min.edu.bean02.JobAddress">
+		<constructor-arg ref="myAddr03"/>
+		<constructor-arg value="개발자"/>
+	</bean>
+	
+	<bean id="sing" class="com.min.edu.bean02.JobAddress">
+		<constructor-arg ref="myAddr02"/>
+		<constructor-arg value="영국가수"/>
+	</bean>
+	
+</beans>

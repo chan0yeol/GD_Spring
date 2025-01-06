@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- POJO의 호출은 MessageBeanImpl im = new MessageBeanImpl()  -->
+	<bean id="arabica" class="com.min.edu.bean01.MessageBeanImpl"/>
+	
+	<!-- 
+		생성자 오버로딩
+		생성자의 arg입렧시 자동으로 순서대로 입력된다. 
+	-->
+	<bean id="kenya" class="com.min.edu.bean01.MessageBeanImpl">
+		<constructor-arg>
+			<value>Kenya</value>
+		</constructor-arg>
+		<constructor-arg value = "2000"/>
+	</bean>
+	
+	<!-- 
+		생성자 오버로딩
+		생성자의 arg 입력시 index를 통해서 입력 가능
+	 -->
+	<bean id="amaricano" class="com.min.edu.bean01.MessageBeanImpl">
+		<constructor-arg index="0" value="amaricano"/>
+		<constructor-arg index="1" value="1500"/>
+	</bean> 
+</beans>

@@ -1,0 +1,46 @@
+Spring bean configuration에 의해 생성된 bean을 Annotation을 통해서 주입(DI) 하여 사용한다.
+@Resource는 javax.annotation.* 이다
+따라서 pom.xml에 dependency 를 걸어줘야 한다.
+ 	<!-- java에서 지원하는 @Resource 의 Annotation을 사용하기 위한 라이브러리  -->
+	<dependency>
+	    <groupId>javax.annotation</groupId>
+	    <artifactId>javax.annotation-api</artifactId>
+	    <version>1.3.2</version>
+	</dependency>
+	
+	<!-- tomcat 10 버전에서는 jakarta
+	<dependency>
+	    <groupId>jakarta.annotation</groupId>
+	    <artifactId>jakarta.annotation-api</artifactId>
+	    <version>2.1.1</version>
+	</dependency>
+ 	-->
+ 
+@Resource는 반드시 <context:annotation-config>을 통해서 클래스에 작성한 Annotation 문법이 동작될 수 있도록 해줘야 한다.
+
+@Required는 강제 주입의 필수 조건을 만들기 위해 사용했던 Annotation이다. 
+Spring Framework 5.1 이후에는 Deprecate 되면서 사용을 지양하고 있다.
+	
+ -- 5.1 이전 문법
+	@Required
+	public void setHobby(String hobby) {
+		this.hobby = hobby;
+	}
+	
+ -- 5.1 이후 문법에서는 생성자를 통해서 필수로 입력하도록 권장한다.
+    public class UserDto{
+    	private String name;
+    	public UserDto(String name){
+    		this.name = name;
+    	}
+    }	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	 
