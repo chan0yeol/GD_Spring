@@ -1,0 +1,56 @@
+생성된 Bean의 주입방법 (DI)
+
+@Autowired, @Resource를 통해서 주입할 수 있다.
+annotation을 사용하기 위해서는 
+<context:annotation-config /> 가 있어야 한다.
+
+@Autowired
+	org.springframework.beans.factory.annotation.Autowired
+1) 주입의 우선 순위 : 타입 -> 이름 -> @Qualifier
+2) 주입되는 타입을 첫번째 우선순위로 갖는다.
+	- xml bean의 id가 없는 bean이 있다면 타입과 같은 bean을 자동 주입한다.
+	- xml에 여러개의 같은 타입의 bean이 존재한다면 (student,stu01,stu02)
+	  선언되어 있는 변수명에 맞는 bean을 주입해서 사용해야 한다.
+	  
+	  ex) 
+	  	private Student student; -> <bean id="student"
+	  	private Student stu01;   -> <bean id="stu01"
+	  	private Student stu02;   -> <bean id="stu02"
+	  	
+	- 변수명에 상관 없이 해당 bean을 주입받고 싶다면 @Qualifier를 사용해야 한다. 
+	  @Autowired
+	  @Qualifier("stu01")
+	  private Student student;
+	  
+@Resource(name ="")
+	javax.annotation.Resource
+1) 주입 우선순위 : 이름 -> 파일 -> @Qualifier
+2) 주입되는 이름을 첫번째 우선순위를 갖는다.
+  - @Resource만 사용할 경우 변수명과 같은 id의 bean을 찾는다.
+  - 같은 id가 없다면 타입을 검색한다.
+  	현재 Student로 생성된 3개의 bean이 있기 때문에 오류 발생
+  	single match ... found 3 : com.min.edu.Student#, stu01, stu02 .. 이런 오류 발생
+3) @Resource(name = "stu02") 또는 @Resource @Qualifier("stu02") 방법 중 선택하여 작성
+
+*********************
+@Autowired와 @Resource의 차이점은 무엇인가?
+	Spring Framework의 객체인지, java객체를 Framework에 의존하지 않느냐 차이점 이다. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

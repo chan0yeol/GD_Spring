@@ -1,0 +1,53 @@
+### org.springframework.stereotype VS org.springframework.beans.factory.annotation VS 
+javax.annotation 의 비교
+
+
+
+@componet
+
+패키지 :  org.springframework.stereotype
+버전 : 2.5
+설정 : bean 등록 ⇒ spring framework에서 사용할 수 있도록 Spring Container에 등록 과정
+           등록하고자 하는 클래스에서 작성하여 자동으로 bean으로 등록 될 수 있도록 함.
+           범위는 Single-ton이다. @Scope 를 통해서 선언도 가능함.
+
+@Autowired
+패키지 : org.springframework.beans.factory.annotation
+버전 : 2.5 
+설명 : Autowired Annotation은 Spring의 의존관계 (DI)를 자동으로 설정할 때 사용
+           작성되는 곳은 1. 생성자 2. 메소드 3. setter 4. 멤버필드
+           타입을 기반으로 검색된다.
+           해당 객체의 타입이 bean으로 만들어 져 있지 않을 때, 해당 객체의 타입으로 생성된 bean이 
+           여러개 일때 문제가 발생한다.
+           @Autowired(required=false) 하면 null로 처리 된다]. @Qualifier(””)를 통해서 특정 Bean을 선택
+           by type 
+
+@Qualifier
+
+패키지 : org.springframework.beans.factory.annotation
+버전 : 2.5 
+설명 : 이름 기반의 bean을 사용 할 수 있도록 해줌.
+
+@Required
+
+패키지 : org.springframework.beans.factory.annotation
+버전 : 2.0
+설명 : Bean을 만들 때 반드시 입력되어야 하는 값을 property에 지정하여 사용할 수 있도록 해줌
+           spring 4.3 이후에는 deprecate 되었고 생성자를 통해서 작성해야 한다.
+  
+
+@Resource
+
+패키지 : javax.annotation 
+버전 : 2.5 
+설명 : java 1.6 버전 / J2EE 5버전에서 추가된 객체
+           애플리케이션에서 필요로 하는 자원을 자동연결하기 위해서 사용
+           의존하는 bean의 객체를 전달 할 때 사용
+           이름 기반으로 검색 
+           by name
+
+@Controller
+
+@Service
+
+@Repository

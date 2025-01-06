@@ -16,6 +16,13 @@
   </properties>
 
   <dependencies>
+  	<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+	<dependency>
+	    <groupId>org.projectlombok</groupId>
+	    <artifactId>lombok</artifactId>
+	    <version>1.18.36</version>
+	</dependency>
+
     <!-- Spring Core 라이브러리 -->
 	<dependency>
 	    <groupId>org.springframework</groupId>

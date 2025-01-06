@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- TODO 100-01 정리 각 클래스를 xml에서 bean으로 선언하여 사용 -->
+	<!-- <bean id="myUser01" class="com.min.edu.anno06.UserDto"> -->
+	<!-- <constructor-arg value="윐흔" /> -->
+	<!-- </bean> -->
+	<!-- <bean id="userServiceImpl" -->
+	<!-- class="com.min.edu.anno06.UserServiceImpl"> -->
+	<!-- <property name="dto01" ref="myUser01" /> -->
+	<!-- </bean> -->
+
+	<!-- TODO 100-02-01 UserServiceImpl을 @Autowired를 통해서 xml로 선언된 UserDto 주입 
+		org.springframework.beans.factory.annotation의 클래스들은 <context:annotation-config>를 
+		선언해 줘야 한다. -->
+	<!-- <context:annotation-config /> -->
+	<!-- <bean id="userServiceImpl" class="com.min.edu.anno06.UserServiceImpl" 
+		/> -->
+	<!-- <bean id="dto01" class="com.min.edu.anno06.UserDto"> -->
+	<!-- <constructor-arg value="콩나물" /> -->
+	<!-- </bean> -->
+
+	<!-- TODO 100-03-01 UserServiceImpl을 @Component를 Bean으로 만들어 사용하기 위해서 선언 org.springframework.stereotype.* 
+		은 <context:component-scan base-package="" /> base-package 기준으로 하위에 있는 모든 
+		패키지의 stereotype을 검색하여 Bean으로 등록해 준다. -->
+	<context:component-scan base-package="com.min.edu.anno06" />
+	<bean id="dto01" class="com.min.edu.anno06.UserDto">
+		<constructor-arg value="어묵" />
+	</bean>
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
