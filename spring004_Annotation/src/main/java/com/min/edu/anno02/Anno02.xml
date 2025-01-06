@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 
+		bean을 주입하여 bean을 생성한다.
+		bean은 bean을 통해서만 서로 사용할 수 있기 때문이다. 
+	-->
+	<bean id="nickName" class="com.min.edu.anno02.NickName" />
+	
+	<bean id="nickNameProp" class="com.min.edu.anno02.NickNameProp">
+		<property name="nickName" ref="nickName" />
+	</bean>
+
+</beans>
