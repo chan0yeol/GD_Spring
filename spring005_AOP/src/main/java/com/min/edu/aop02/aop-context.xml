@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--  POJO 객체를 Bean으로 작성한다. -->
+<bean id="employee" class="com.min.edu.aop02.Employee" />
+<bean id="ceo" class="com.min.edu.aop02.CEO" />
+<bean id="myAspect" class="com.min.edu.aop02.CCC_Aspect" />
+
+<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
+
+<bean class="org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor">
+	<property name="advice" ref="myAspect" />
+	<property name="expression" value="execution(public * *(..))" />
+</bean>
+
+</beans>
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+<!-- 
+	@Aspect 는 Spring이 아닌 java의 구현체이기 때문에 <context:component-scan .. > 을 통해서 사용할 수 없다.
+	
+ -->
+	<aop:aspectj-autoproxy />
+	<bean id="CCC_Aspect" class="com.min.edu.aop03.CCC_Aspect"/>
+	<bean id="employee" class="com.min.edu.aop03.Employee"/>
+	<bean id="ceo" class="com.min.edu.aop03.CEO"/>
+
+</beans>

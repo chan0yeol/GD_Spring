@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<aop:aspectj-autoproxy />
+	<bean id="myAspect" class="com.min.edu.aop04.CCC_Aspect" />
+	<bean id="employee" class="com.min.edu.aop04.Employee" />
+	<bean id="ceo" class="com.min.edu.aop04.CEO" />
+	
+	<aop:config>
+		<aop:aspect ref="myAspect">	 <!-- advice의 Bean을 지정해 준다. -->
+			<aop:before method="beforeMethod" pointcut="execution(public void com.min.edu.aop04.*.*(..))" />
+			<aop:after-throwing method="exceptionMethod" pointcut="execution(public void com.min.edu.aop04.*.*(..))" throwing="e"/>
+			<aop:after method="afterMethod" pointcut="execution(public void com.min.edu.aop04.*.*(..))" />
+		</aop:aspect>
+	</aop:config>
+	
+</beans>
