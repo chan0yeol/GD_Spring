@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<!-- TODO PropertyPlaceholderConfigurer는 deprecate 되었다. 
+		 (3.1이후) 하지만 하위 호완성을 위해 남아있다.
+		 PropertySourcesPlaceholderConfigurer를 통해 작성해야 한다.
+		 이는 namespace 방법으로 <context:property-placeholder location="">을 통해 사용할 수 있다.
+	 -->
+<!-- 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> -->
+<!-- 		<property name="locations"> -->
+<!-- 			<list> -->
+<!-- 				<value>classpath:properties/oracleDB.properties</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+<!-- 	<context:property-placeholder location="classpath:properties/oracleDB.properties"/> -->
+	<bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:properties/oracleDB.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- TODO MyBatis -->
+	<!-- Property 파일을 사용하여 DataSource를 만들어 냄 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${driver}"/>
+		<property name="url" value="${url}"/>
+		<property name="username" value="${user}"/>
+		<property name="password" value="${pw}"/>
+	</bean>
+	
+	<!-- DataSource를 사용하여 SqlSessionFactory 객체를 bean으로 만들어 준다, DataSource + MyBatis 환경설정 파일 -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+ 		<property name="dataSource" ref="dataSource" />
+ 		<property name="configLocation" value="classpath:mybatis/Configuration.xml"/>
+	</bean>
+	
+	<!-- MyBatis의 SqlSessionFactory Bean을 Spring에서 사용하는 template를 만들어 Autowired를 통해 사용하기 위함  -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactoryBean"/>
+	</bean>
+	
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
