@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<!-- 
+		TODO 001 spring의 DispactherServlet을 작성,
+		-> WEB-INF 안에 spring-context.xml beanconfig 파일 생성
+	 -->
+	<servlet>
+		<servlet-name>spring</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>	
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>	
+		<url-pattern>/spring/*</url-pattern>
+	</servlet-mapping>
+	
+</web-app>
