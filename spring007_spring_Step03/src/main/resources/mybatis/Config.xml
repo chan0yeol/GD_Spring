@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<!-- TODO 10603 myBatis Configuration xml 생성 -->
+	<!-- 접속(DataSource, 트랜잭션객체(transactionManager) : IoC를 통해서 Spring Container가 제어하기 때문에 spring Bean으로 생성된 -->
+	<!-- MyBatis의 고유 설정인 settings, Alias, Mapper는 myBatis에서 설정 -->
+	<typeAliases>
+		<typeAlias type="com.min.edu.dto.BoardDto" alias="BoardDto"/>	
+	</typeAliases>
+	
+	
+	<!-- TODO 10606 Mapper 연결 -->
+	<mappers>
+		<mapper resource="sql/Board_Mapper.xml"/>
+	</mappers>
+</configuration>

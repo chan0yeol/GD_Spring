@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.min.edu.model.BoardDaoImpl">
+	<!-- TODO 10605 Mapper 생성 -->
+	<select id="selectBoard" resultType="BoardDto">
+	SELECT SEQ , ID , TITLE , CONTENT , REGDATE , DELFLAG 
+	FROM BOARD b 
+	</select>
+	
+	<insert id="insertBoard" parameterType="BoardDto">
+	INSERT INTO BOARD
+	(SEQ, ID, TITLE, 
+		CONTENT, REGDATE, DELFLAG)
+	VALUES(
+		(SELECT MAX(SEQ)+1 FROM BOARD), #{id}, #{title}, 
+			#{content}, SYSDATE , 'N')
+	</insert>
+	
+	<update id="updateBoard">
+	UPDATE BOARD 
+	SET DELFLAG = 'Y'
+	</update>
+</mapper>
