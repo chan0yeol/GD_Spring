@@ -41,5 +41,14 @@
 			<input type="submit" value="주소에서 Parameter 처리">
 		</form>
 	</fieldset>
+	<fieldset>
+		<legend>Transaction을 통한 @Transactional</legend>
+		<form action="./transaction.do" method="post">
+			<input type="text" name="id" value="트랜잭션 "><br>
+			<input type="text" name="title" value="트랜잭션"><br>
+			<input type="text" name="content" value="오늘은 아침에 춥고 저녁에 덜 춥다"><br>
+			<input type="submit" value="전송">
+		</form>
+	</fieldset>
 </body>
 </html>

@@ -11,5 +11,6 @@ import com.min.edu.dto.BoardDto;
 public interface IBoardService {
 	public List<BoardDto> selectBoard();
 	public int insertBoard(Object dto);
-
+	
+	int transaction(BoardDto dto);
 }

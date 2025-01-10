@@ -7,7 +7,14 @@
 <title></title>
 </head>
 <body>
+	<!-- 
+		TODO 10618 pageContext PathVariable을 통한 값 처리 후 이동
+	 -->
 	<h2>@PathVariable을 통한 주소의 값을 추출 후 이동한 페이지</h2>
-	<a href="./">이동</a>
+	${pageContext.request.requestURI} <br>
+	${pageContext.request.requestURL} <br>
+	${pageContext.request.contextPath} <br>
+	
+	<a href="${pageContext.request.contextPath}">이동</a>
 </body>
 </html> 

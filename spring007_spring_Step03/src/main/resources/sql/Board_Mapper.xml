@@ -18,6 +18,6 @@
 	
 	<update id="updateBoard">
 	UPDATE BOARD 
-	SET DELFLAG = 'Y'
+	SET DELFLAG = 'Y';
 	</update>
 </mapper>
