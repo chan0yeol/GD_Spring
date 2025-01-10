@@ -56,5 +56,9 @@
 			</li>		
 		</ul>
 	</fieldset>
+	<fieldset>
+		<legend>myBatis CRUD 실습 </legend>
+		<a href="./selectBoard.do">게시글 전체 보기</a>
+	</fieldset>
 </body>
 </html>

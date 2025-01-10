@@ -7,7 +7,7 @@
 	FROM BOARD b 
 	</select>
 	
-	<insert id="insertBoard" parameterType="BoardDto">
+	<insert id="insertBoard">
 	INSERT INTO BOARD
 	(SEQ, ID, TITLE, 
 		CONTENT, REGDATE, DELFLAG)

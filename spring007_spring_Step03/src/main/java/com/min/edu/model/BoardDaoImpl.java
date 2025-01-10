@@ -27,7 +27,7 @@ public class BoardDaoImpl implements IBoardDao {
 	}
 
 	@Override
-	public int insertBoard(BoardDto dto) {
+	public int insertBoard(Object dto) {
 		log.info("사용자 로거 BoardDaoImpl insertBoard");
 		return sqlSession.insert(NS+"insertBoard",dto);
 	}

@@ -10,7 +10,7 @@ import lombok.ToString;
 @ToString
 @Builder
 public class BoardDto {
-	private int seq;
+	private String seq;
 	private String id , title , content , regdate , delflag;
 	
 }

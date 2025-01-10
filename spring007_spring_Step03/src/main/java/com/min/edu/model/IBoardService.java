@@ -10,6 +10,6 @@ import com.min.edu.dto.BoardDto;
 // DAO를 조합하여 IoC를 통한 Transaction 제어
 public interface IBoardService {
 	public List<BoardDto> selectBoard();
-	public int insertBoard(BoardDto dto);
+	public int insertBoard(Object dto);
 
 }

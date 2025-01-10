@@ -24,7 +24,7 @@ public class BoardServiceImpl implements IBoardService{
 	}
 
 	@Override
-	public int insertBoard(BoardDto dto) {
+	public int insertBoard(Object dto) {
 		log.info("BoardServiceImpl insertBoard()");
 		return boardDao.insertBoard(dto);
 	}

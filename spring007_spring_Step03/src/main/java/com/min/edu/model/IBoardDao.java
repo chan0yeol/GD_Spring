@@ -8,6 +8,6 @@ import com.min.edu.dto.BoardDto;
 
 public interface IBoardDao {
 	public List<BoardDto> selectBoard();
-	public int insertBoard(BoardDto dto);
+	public int insertBoard(Object dto);
 	public int updateBoard();
 }
