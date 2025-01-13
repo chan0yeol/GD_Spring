@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.min.edu.dto.ProductInfoDto" alias="ProductInfoDto"/>
+		<typeAlias type="com.min.edu.dto.StockDto" alias="StockDto"/>
+		<typeAlias type="com.min.edu.dto.EmpDto" alias="EmpDto"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="sql/Product_Info.xml"/>
+		<mapper resource="sql/StockInMapper.xml"/>
+		<mapper resource="sql/StockOutMapper.xml"/>
+		<mapper resource="sql/ManagerMapper.xml"/>
+		<mapper resource="sql/EmpMapper.xml"/>
+	</mappers>
+</configuration>

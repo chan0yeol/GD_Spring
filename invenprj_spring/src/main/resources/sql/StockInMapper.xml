@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.min.edu.repository.StockInDaoImpl">
+
+	<sql id="allColumn">
+		SELECT STOCK_ID, GUBUN, STOCK_DATE,
+            STOCK_AMOUNT, STOCK_MGR, STOCK_COST,
+            IS_ACCEPTED ,PRODUCT_ID
+  			FROM STOCK
+  			WHERE GUBUN = 'I'
+	</sql>
+	
+	<select id="selectStockInAll" resultType="StockDto">
+		SELECT STOCK_ID, GUBUN, STOCK_DATE,
+            STOCK_AMOUNT, STOCK_MGR, STOCK_COST,
+            IS_ACCEPTED ,PRODUCT_ID
+        FROM STOCK
+        WHERE GUBUN = 'I' AND IS_ACCEPTED = 'Y'
+        ORDER BY STOCK_DATE DESC
+	</select>
+	
+	<insert id="insert" parameterType="StockDto">
+  		INSERT INTO STOCK( STOCK_ID, GUBUN, STOCK_DATE,
+						STOCK_AMOUNT, STOCK_MGR, STOCK_COST,
+						IS_ACCEPTED ,PRODUCT_ID)
+		VALUES (TO_CHAR(SYSDATE,'YYYY')||LPAD(STOCK_SEQ.NEXTVAL,3,'0'),'I',SYSTIMESTAMP, #{stock_amount}, #{stock_mgr},'0',#{is_accepted},#{product_id})
+  	</insert>
+  	
+  	<select id="selectDateRange" resultType="StockDto" parameterType="Map">
+  		 SELECT STOCK_ID, GUBUN, STOCK_DATE,
+            STOCK_AMOUNT, STOCK_MGR, STOCK_COST,
+            IS_ACCEPTED ,PRODUCT_ID 
+        FROM STOCK 
+        WHERE TRUNC(STOCK_DATE) BETWEEN TO_DATE(#{start}, 'YYYY-MM-DD')AND TO_DATE(#{end}, 'YYYY-MM-DD')
+        
+  	</select>
+  	
+  	<select id="selectStockInByMgr" resultType="StockDto" parameterType="int">
+  		SELECT STOCK_ID, GUBUN, STOCK_DATE,
+            STOCK_AMOUNT, STOCK_MGR, STOCK_COST,
+            IS_ACCEPTED ,PRODUCT_ID 
+        FROM STOCK 
+        WHERE GUBUN = 'I' AND IS_ACCEPTED = 'Y'
+        AND STOCK_MGR = #{empno}
+  	</select>
+  	
+  	<select id="selectDynamicDate" resultType="StockDto" parameterType="Map">
+  		<include refid="allColumn"/>
+		  <where>
+		 	<choose>
+		 		<when test="start != null and end = null">
+		 			TRUNC(S_IN_DATE) BETWEEN TO_DATE(#{start}, 'YYYY-MM-DD') AND TRUNC(SYSDATE)
+		 		</when>
+		 		<when test="start != null and end != null">
+		 			TRUNC(S_IN_DATE) BETWEEN TO_DATE(#{start}, 'YYYY-MM-DD') AND TO_DATE(#{end}, 'YYYY-MM-DD')
+		 		</when>
+		 	
+		 	</choose>
+		  </where>
+  	</select>
+  	
+  	
+  	
+  	<delete id="stockInDelete" parameterType="StockDto">
+  		DELETE FROM STOCK
+  		WHERE STOCK_ID = #{stock_id}
+  	</delete>
+  	
+  	<!-- 입고수정 추가(지원) -->
+  	<update id="updateStockInAmount">
+  		UPDATE STOCK
+           SET STOCK_AMOUNT = #{stock_amount}
+           WHERE GUBUN = 'I'
+           AND STOCK_ID = #{stock_id}
+  	</update>
+  	
+  	<select id="stockInDetail" resultType="StockDto" parameterType="int">
+  		SELECT STOCK_ID, CASE GUBUN 
+						WHEN 'I' THEN '입고' 
+					END AS GUBUN , STOCK_DATE, STOCK_AMOUNT, STOCK_MGR, STOCK_COST,
+					PRODUCT_ID
+			FROM STOCK 
+			WHERE STOCK_ID = #{stock_id} 
+  	</select>
+  	<select id="selectById" resultType="StockDto" parameterType="int">
+  		SELECT * FROM STOCK WHERE STOCK_ID = #{stock_id}
+  	</select>
+</mapper>

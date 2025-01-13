@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.min.edu.repository.StockOutDaoImpl">
+
+	<!-- 	insertStockOut -->
+	<insert id="insertStockOut" parameterType="StockDto">
+		 INSERT INTO STOCK( STOCK_ID, GUBUN, STOCK_DATE,
+		 					STOCK_AMOUNT, STOCK_MGR, STOCK_COST,
+                            IS_ACCEPTED ,PRODUCT_ID)
+         VALUES (TO_CHAR(SYSDATE,'YYYY')||LPAD(STOCK_SEQ.NEXTVAL,3,'0'),'O',SYSTIMESTAMP, #{stock_amount}, #{stock_mgr},#{stock_cost},'Y',#{product_id})
+	</insert>
+	
+	<!-- 	selectStockOutAll -->
+	<select id="selectStockOutAll" resultType="StockDto">
+		SELECT STOCK_ID, GUBUN, STOCK_DATE,
+               STOCK_AMOUNT, STOCK_MGR, STOCK_COST,
+               IS_ACCEPTED ,PRODUCT_ID, DEL_ID 배송ID ,STOCK_ADDR 
+        FROM STOCK LEFT JOIN STOCK_DELIVERY 
+        USING(STOCK_ID) 
+        WHERE GUBUN = 'O' AND IS_ACCEPTED = 'Y'
+	</select>
+	
+	<!-- 	selectOutDateRange -->
+	<select id="selectOutDateRange" resultType="StockDto" parameterType="Map">
+		SELECT STOCK_ID, GUBUN, STOCK_DATE,
+               STOCK_AMOUNT, STOCK_MGR, STOCK_COST,
+               IS_ACCEPTED ,PRODUCT_ID 
+        FROM STOCK 
+        WHERE TRUNC(STOCK_DATE) BETWEEN TO_DATE(#{start}, 'YYYY-MM-DD')AND TO_DATE(#{end}, 'YYYY-MM-DD')
+	</select>
+	
+	<!-- 	selectStockOutByMgr -->
+	<select id="selectStockOutByMgr" resultType="StockDto" parameterType="int">
+		SELECT STOCK_ID, GUBUN, STOCK_DATE,
+               STOCK_AMOUNT, STOCK_MGR, STOCK_COST,
+               IS_ACCEPTED ,PRODUCT_ID 
+        FROM STOCK 
+        WHERE GUBUN = 'O' AND IS_ACCEPTED = 'Y'
+        AND STOCK_MGR = #{stock_mgr}
+	</select>
+	
+	<!-- updateStockOutAmount -->
+	<update id="updateStockOutAmount">
+		UPDATE STOCK
+        SET STOCK_AMOUNT = #{stock_amount}
+        WHERE GUBUN = 'O' AND STOCK_ID = #{stock_id}
+	</update>
+	<update id="updateStockOutDelivery">
+        UPDATE STOCK_DELIVERY 
+        SET STOCK_ADDR = #{stock_addr}
+        WHERE STOCK_DELIVERY.STOCK_ID = #{stock_id}
+	</update>
+	
+	<!-- 입출고 재고조회 -->
+	<!-- selectStockInventory -->
+	<select id="selectStockInventory" resultType="StockDto">
+	SELECT PRODUCT_ID, NVL(입고수량,'0') AS STOCK_AMOUNT , NVL(출고수량,'0') AS STOCK_MGR , NVL(입고수량,'0')-NVL(출고수량,'0')AS STOCK_COST
+        FROM (SELECT PRODUCT_ID , SUM(STOCK_AMOUNT) AS 입고수량 
+                                  FROM STOCK
+                                WHERE IS_ACCEPTED = 'Y' AND GUBUN = 'I'
+                                GROUP BY PRODUCT_ID) t1 
+	FULL OUTER JOIN (SELECT PRODUCT_ID , SUM(STOCK_AMOUNT) AS 출고수량 
+	                FROM STOCK s 
+	                WHERE IS_ACCEPTED = 'Y' AND GUBUN = 'O'
+	                    GROUP BY PRODUCT_ID) t2
+	    USING (PRODUCT_ID)
+	   ORDER BY PRODUCT_ID
+	
+<!-- 		SELECT PRODUCT_ID, 입고수량, 출고수량, 입고수량-출고수량 AS 재고 -->
+<!-- 		FROM (SELECT PRODUCT_ID , SUM(STOCK_AMOUNT) AS 입고수량  -->
+<!-- 		      FROM STOCK -->
+<!-- 		      WHERE IS_ACCEPTED = 'Y' AND GUBUN = 'I' -->
+<!-- 		      GROUP BY PRODUCT_ID) t1  -->
+<!-- 		      FULL OUTER JOIN (SELECT PRODUCT_ID , SUM(STOCK_AMOUNT) AS 출고수량  -->
+<!-- 		            FROM STOCK s  -->
+<!-- 		            WHERE IS_ACCEPTED = 'Y' AND GUBUN = 'O' -->
+<!-- 		            GROUP BY PRODUCT_ID) t2 -->
+<!-- 		      USING (PRODUCT_ID)	 -->
+	</select>
+	
+	<!-- 출고수량 순 목록조회 -->
+	<!-- selectStockAmount -->
+	<select id="selectStockAmount" resultType="ProductInfoDto" >
+		<!--  
+		SELECT STOCK_ID, GUBUN, STOCK_DATE, STOCK_MGR, STOCK_COST, IS_ACCEPTED, PRODUCT_ID,
+               "출고수량", DENSE_RANK() OVER(ORDER BY "출고수량" DESC) AS "수량순위"
+        FROM(SELECT STOCK_ID, GUBUN, STOCK_DATE, STOCK_MGR, STOCK_COST, IS_ACCEPTED, PRODUCT_ID,
+                    SUM(STOCK_AMOUNT) OVER(PARTITION BY PRODUCT_ID) AS "출고수량"
+             FROM STOCK
+             WHERE GUBUN = 'O')
+         -->
+	SELECT DENSE_RANK() OVER(ORDER BY "총출고량" DESC) AS ORIGINAL_COST ,"총출고량" AS PRODUCT_AMOUNT, PRODUCT_ID, PRODUCT_NAME , PRODUCT_MAKER 
+	FROM PRODUCT_INFO t1 
+	LEFT JOIN (SELECT PRODUCT_ID ,SUM(STOCK_AMOUNT) AS "총출고량"
+							FROM STOCK
+							WHERE GUBUN = 'O' AND IS_ACCEPTED = 'Y'
+							GROUP BY PRODUCT_ID
+							ORDER BY "총출고량") t2
+	USING(PRODUCT_ID)
+	WHERE IS_ACCEPTED ='Y' AND "총출고량" IS NOT NULL
+	</select>
+	
+	<!-- 매출액 순 목록조회 -->
+	<!-- selectStockSales -->
+	<select id="selectStockSales" resultType="ProductInfoDto">
+<!-- 		SELECT STOCK_ID, GUBUN, STOCK_DATE, STOCK_MGR, STOCK_COST, IS_ACCEPTED, PRODUCT_ID, -->
+<!--                "출고매출", DENSE_RANK() OVER(ORDER BY "출고매출" DESC) AS "매출순위" -->
+<!--         FROM(SELECT STOCK_ID, GUBUN, STOCK_DATE, STOCK_MGR, STOCK_COST, IS_ACCEPTED, PRODUCT_ID, -->
+<!--                     SUM(STOCK_AMOUNT*STOCK_COST) OVER(PARTITION BY PRODUCT_ID) AS "출고매출" -->
+<!--              FROM STOCK -->
+<!--              WHERE GUBUN = 'O') -->
+	SELECT DENSE_RANK() OVER(ORDER BY "출고금액" DESC) AS ORIGINAL_COST ,"출고금액" AS PRODUCT_AMOUNT, PRODUCT_ID, PRODUCT_NAME , PRODUCT_MAKER 
+	FROM PRODUCT_INFO t1 
+	LEFT JOIN (SELECT PRODUCT_ID ,SUM(STOCK_AMOUNT*STOCK_COST) AS "출고금액" 
+							FROM STOCK
+							WHERE GUBUN = 'O' AND IS_ACCEPTED = 'Y'
+							GROUP BY PRODUCT_ID
+							ORDER BY "출고금액") t2
+	USING(PRODUCT_ID)
+	WHERE IS_ACCEPTED ='Y' AND "출고금액" IS NOT NULL
+	</select>
+	<!-- 출고 상세정보 -->
+	<select id="stockOutDetail" resultType="StockDto" parameterType="int">
+  		SELECT STOCK_ID, CASE GUBUN 
+						WHEN 'O' THEN '출고' 
+					END AS GUBUN , STOCK_DATE, STOCK_AMOUNT, STOCK_MGR, STOCK_COST,
+					PRODUCT_ID
+			FROM STOCK 
+			WHERE STOCK_ID = #{stock_id} 
+  	</select>
+
+</mapper>
