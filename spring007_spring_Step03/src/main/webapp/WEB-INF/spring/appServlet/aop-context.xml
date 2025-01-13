@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	<!-- TODO 10802 AOP Bean 생성 -->
+	<bean id="daoLogExecute" class="com.min.edu.aop.DaoLogExecute" />
+	
+	<aop:config>
+		<aop:pointcut expression="execution(public * com.min.edu.model.*Dao*.*(..))" id="daoLogPonitCut"/>
+		<aop:aspect ref="daoLogExecute">
+			<aop:before method="before" pointcut-ref="daoLogPonitCut"/>
+			<aop:after-returning method="afterReturning" pointcut-ref="daoLogPonitCut" returning="result"/>
+			<aop:after-throwing method="error" pointcut-ref="daoLogPonitCut" throwing="exception"/>
+		</aop:aspect>
+	</aop:config>
+</beans>

@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.min.edu</groupId>
-	<artifactId>spring007_spring_Step03</artifactId>
+	<artifactId>spring008_spring_Step04</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring007_spring_Step03 Maven Webapp</name>
+	<name>spring008_spring_Step04 Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<!-- tag에 공통적으로 사용할 값을 선언하는 영역 -->
 	<properties>
@@ -94,7 +94,7 @@
 			<artifactId>guava</artifactId>
 			<version>33.2.1-jre</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -124,10 +124,23 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- TODO 10800 AOP처리를 위한 aspect 라이브러리 -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
-		<finalName>spring007_spring_Step03</finalName>
+		<finalName>spring008_spring_Step04</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

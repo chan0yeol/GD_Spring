@@ -20,5 +20,5 @@
 	<!-- TODO 10601 Properties 파일을 읽어서 사용하는 Annotation 설정 -->
 	<context:property-placeholder location="classpath:properties/oracleDB.properties" file-encoding="UTF-8"/>
 	<!-- TODO 10701 TransactionManager -->
-	<tx:annotation-driven transaction-manager="transactionManager"/>
+<!-- 	<tx:annotation-driven transaction-manager="transactionManager"/> -->
 </beans>

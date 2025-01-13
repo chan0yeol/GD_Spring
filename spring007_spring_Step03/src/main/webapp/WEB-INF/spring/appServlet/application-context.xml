@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	<!-- TODO 10608 properties -->
 	<bean
 		class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
@@ -38,4 +42,20 @@
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 	
+	<!-- TODO 10803 AOP 트랜잭션 처리 -->
+	<!-- 
+		IoC 구조에서 Bean의 기능을 조합하여 Service에서 독립적으로 실행이 가능함.
+		Life-Cycle구조에서는 절대 DAO를 제어할 수 없다.
+		하지만 IoC 구조에서는 service에서 조합되는 Dao의 메소드를 제어하여 RollBack
+	 -->
+	 <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" rollback-for="Exception"/>
+		</tx:attributes>	 	
+	 </tx:advice>
+	 
+	 <aop:config>
+	 	<aop:pointcut expression="execution(public * com.min.edu.model.*Service*.*(..))" id="transactionPointCut"/>
+	 	<aop:advisor advice-ref="transactionAdvice" pointcut-ref="transactionPointCut"/>	
+	 </aop:config>
 </beans>
