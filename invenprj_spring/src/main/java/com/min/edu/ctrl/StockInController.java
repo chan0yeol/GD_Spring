@@ -25,7 +25,7 @@ public class StockInController {
 		log.info("StockInController /stockInAllInfo.do GET 요청");
 		List<StockDto> lists = service.selectAll();
 		model.addAttribute("StockInList",lists);
-		return "stockInAllInfo";
+		return "stockAllInfo";
 	}
 	
 //	/stockInInfo.do 
