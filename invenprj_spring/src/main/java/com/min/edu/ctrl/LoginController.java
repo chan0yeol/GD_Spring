@@ -27,23 +27,23 @@ public class LoginController {
 		return "login";
 	}
 	
-	@PostMapping("/login.do")
-	public String login(String name, int empno, Model model , HttpSession session) {
+	@PostMapping("/loginServlet.do")
+	public String login(String ename, int empno, Model model , HttpSession session) {
 		log.info("login POST ");
-		EmpDto loginDto = dao.login(EmpDto.builder().ename(name).empno(empno).build());
+		EmpDto loginDto = dao.login(EmpDto.builder().ename(ename).empno(empno).build());
 		if(loginDto != null) {
 			session.setAttribute("emp", loginDto);
 			if(loginDto.getDeptno() == 50 ) {
-				return "/productAllInfo.do";
+				return "redirect:/stockInAllInfo.do";
 			} else if(loginDto.getDeptno() == 60) {
-				return "/stockAllInfo.do";
+				return "redirect:/stockInAllInfo.do";
 			} else if(loginDto.getDeptno() == 70) {
-				return "/stockOutAllInfo.do";
+				return "redirect:./stockOutAllInfo.do";
 			}
 		} else {
 			String fail = "로그인 실패";
 			model.addAttribute("fail",fail);
 		}
-		return "/login.do";
+		return "login";
 	}
 }
