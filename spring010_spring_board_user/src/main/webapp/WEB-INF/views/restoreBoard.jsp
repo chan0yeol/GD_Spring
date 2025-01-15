@@ -4,14 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Home</title>
+<title>삭제된 글 리스트</title>
 </head>
 <body>
-	<h2>home.do 요청처리 페이지</h2>
-	<form action="./test.do" method="post">
-		<input type="submit" value="test">
-	</form>
-	
-	${test}
+
 </body>
 </html>

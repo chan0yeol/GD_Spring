@@ -4,14 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Home</title>
+<title>로그인 화면 이동</title>
 </head>
 <body>
-	<h2>home.do 요청처리 페이지</h2>
-	<form action="./test.do" method="post">
-		<input type="submit" value="test">
-	</form>
-	
-	${test}
+
 </body>
 </html>

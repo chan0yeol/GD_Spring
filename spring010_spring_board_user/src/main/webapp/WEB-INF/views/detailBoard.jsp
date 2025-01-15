@@ -4,14 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Home</title>
+<title>게시글 상세 화면</title>
 </head>
 <body>
-	<h2>home.do 요청처리 페이지</h2>
-	<form action="./test.do" method="post">
-		<input type="submit" value="test">
-	</form>
-	
-	${test}
+
 </body>
 </html>
