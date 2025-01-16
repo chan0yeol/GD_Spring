@@ -12,6 +12,7 @@
 			CONTENT, "REF", STEP,
 			"DEPTH", REGDATE, DELFLAG
 			FROM ANSWERBOARD a
+			ORDER BY REF DESC, STEP
 		]]>
 	</select>
 	<!-- 게시글 삭제하기 delflagBoard -->
@@ -20,8 +21,7 @@
 		SET DELFLAG = 'Y'
 		WHERE DELFLAG ='N'
 		AND SEQ IN
-		<foreach collection="list" item="seq" open="(" separator=","
-			close=")">
+		<foreach collection="list" item="seq" open="(" separator="," close=")">
 			#{seq}
 		</foreach>
 	</delete>

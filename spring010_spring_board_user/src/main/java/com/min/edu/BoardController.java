@@ -2,6 +2,7 @@ package com.min.edu;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -38,11 +39,14 @@ public class BoardController {
 	 * 이전의 cache 삭제 response에서 Pragma, Cache-Control, Expires 
 	 */
 	@GetMapping("/boardList.do")
-	public String boardList(Model model) {
+	public String boardList(Model model, HttpServletResponse response) {
 		log.info("BoardController /boardList.do GET ");
 		/*
 		 * 캐쉬 삭제 코드 작성
 		 */
+		response.setHeader("Pragma", "no-cache");
+		response.setHeader("Cache-Control", "no-cache,no-store,must-revalidate");
+		response.setHeader("Expires", "0");
 		List<BoardVo> boardList = service.userBoardList();
 		model.addAttribute("boardList",boardList);
 		return "boardList";

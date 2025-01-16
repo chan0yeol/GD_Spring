@@ -1,5 +1,6 @@
 package com.min.edu;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -33,14 +34,20 @@ public class UserController {
 	}
 
 	@PostMapping("/login.do")
-	public String login(@RequestParam Map<String, Object> map, HttpSession session) {
+	public String login(@RequestParam Map<String, Object> map, HttpSession session, HttpServletResponse resp) throws IOException {
 		log.info("UserController /login.do 로그인 POST : {} ", map);
+		resp.setContentType("text/html;charset=UTF-8");
 		UserVo loginVo = userService.getLogin(map);
+		
 		if (loginVo != null) {
 			session.setAttribute("loginVo", loginVo);
+			session.setMaxInactiveInterval(60*10*6);
 			log.info("{} 님 반갑습니다.", loginVo.getName());
+			resp.getWriter().print("<script>alert('"+loginVo.getName()+"님 반갑습니다."+"');location.href='./boardList.do'</script>");
+		}else {
+			resp.getWriter().print("<script>alert('로그인 정보가 없습니다.');location.href='./loginForm.do';</script>");
 		}
-		return "redirect:/boardList.do";
+		return null;
 	}
 
 	@GetMapping("/signupForm.do")
@@ -56,11 +63,17 @@ public class UserController {
 	}
 
 	@PostMapping("/signUp.do")
-	public String signUp(UserVo userVo) {
+	public String signUp(UserVo userVo, HttpServletResponse response) throws IOException {
 		log.info("UserController /signUp.do POST 회원가입 : {}", userVo);
 		int n = userService.signupMember(userVo);
 		log.info("회원가입 여부 : {}", (n > 0) ? "가입성공" : "가입실패");
-		return "redirect:loginForm.do";
+		if(n==1) {
+			return "redirect:loginForm.do";
+		} else {
+			response.setContentType("text/html;charset=UTF-8");
+			response.getWriter().print("<script>alert('회원가입실패');location.href='./signupForm.do'</script>");
+			return null;
+		}
 	}
 
 	@GetMapping("/findIdWindow.do")

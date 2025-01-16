@@ -8,5 +8,6 @@
 </head>
 <body>
 	<a href="./home.do">HOME</a>
+	<a href="./loginForm.do">로그인</a>
 </body>
 </html>
