@@ -78,7 +78,7 @@
 									<span style="color:#ccc; font-size:9px;" >--- 관리자에 의해 삭제된 게시글 입니다. ---</span>									
 									</c:when>
 									<c:otherwise>
-										${vo.title}
+										<a href="./detailBoard.do?seq=${vo.seq}">${vo.title}</a>
 									</c:otherwise>
 								</c:choose>
 							

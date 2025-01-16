@@ -73,7 +73,7 @@ public class BoardController {
 		boardVo.setId(id);		
 		int n = service.writeBoard(boardVo);
 		log.info("글작성 성공 여부 : {}", (n>0)?"입력성공":"실패");
-		return "redirect:/boardList.do";
+		return (n>0)?"redirect:/detailBoard.do?seq="+boardVo.getSeq():"";
 	}
 	
 	@GetMapping("/detailBoard.do")
@@ -99,14 +99,14 @@ public class BoardController {
 		vo.setId(id);
 		int n = service.reply(vo);
 		log.info("답글작성 성공 여부 : {}", (n>0)?"입력성공":"실패");
-		return "redirect:/boardList.do";
+		return n>0?"redirect:/boardList.do":"redirect:/replyBoard.do?seq="+vo.getSeq();
 	}
 	
 	@GetMapping("/restoreBoard.do")
 	public String restoreBoard(Model model) {
 		log.info("UserController /restoreBoard.do GET");
 		List<BoardVo> restoreList = service.restoreBoard();
-		model.addAttribute("restoreList",restoreList);
+		model.addAttribute("restoreList", restoreList);
 		return "restoreBoard";
 	}
 }

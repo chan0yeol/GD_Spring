@@ -44,7 +44,7 @@
 	<select id="getOneBoard" resultType="BoardVo">
 		SELECT SEQ, ID, TITLE,
 		CONTENT, "REF", STEP,
-		"DEPTH", TO_CHAR(REGDATE,'YYYY-MM-DD HH:mi:ss'),
+		"DEPTH", TO_CHAR(REGDATE,'YYYY-MM-DD HH:mi:ss') AS REGDATE,
 		DELFLAG
 		FROM ANSWERBOARD
 		WHERE SEQ = #{seq}
