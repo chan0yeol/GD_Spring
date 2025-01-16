@@ -48,14 +48,39 @@
 							html += "<td>"+value.name+"</td>";
 							html += "</tr>";
 							$("#viewDetail").html(html);
+							
 						});
 							html += "</table>";
+						// javascript createElement 방식
+						var table = document.createElement("table");
+						table.className="table";
+						
+						msg.forEach((value,index)=>{
+							var tr = document.createElement("tr");
+							var indexTd = document.createElement("td");
+							indexTd.textContent = index+1;
+							tr.appendChild(indexTd);
+							var idTd = document.createElement("td");
+							idTd.textContent = value.id;
+							tr.appendChild(idTd);
+							var nameTd = document.createElement("td");
+							nameTd.textContent = value.name;
+							tr.appendChild(nameTd);
+							table.appendChild(tr);
+						});
+						var viewDetail = document.getElementById("viewDetail");
+// 						viewDetail.innerHTML = "";
+						viewDetail.appendChild(table);
 					},
 					error :function() {
 						console.log("잘못된 요청");
 					}
 				});
 			}
+		// --- end
+		
+		//javascript 방식 createDome
+		
 		</script>
 		
 		<h4>[관리자] 회원전체 조회</h4>
