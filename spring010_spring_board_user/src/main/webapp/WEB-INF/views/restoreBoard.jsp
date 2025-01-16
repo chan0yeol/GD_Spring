@@ -39,8 +39,8 @@
 						<td>${vo.regdate}</td>
 						<td>
 							<button onclick="restoreJquery(this)">jQuery 복구</button>
-							<button onclick="restoreJquery(this)">Fetch 복구</button>
-							<button onclick="restoreJquery(this)">axios 복구</button>
+							<button onclick="restoreFetch(this)">Fetch 복구</button>
+							<button onclick="restoreAxios(this)">axios 복구</button>
 						</td>
 					</tr>
 				</c:forEach>
@@ -48,4 +48,56 @@
 		</table>
 	</div>
 </body>
+<script type="text/javascript">
+	function restoreJquery(t){
+		console.log(t);
+		console.log(t.parentNode.parentNode.children[0].textContent);
+		console.log(t.closest('tr').children[0].textContent);
+		var parentTr = t.closest('tr');
+		var seq = t.closest('tr').children[0].textContent;
+		$.ajax({
+			url:"./restore.do",
+			type:"GET",
+			data:{seqs:seq},
+			success:function(msg){
+				console.log(msg);
+				if(msg === 'true') {
+					parentTr.remove();
+				}
+			},
+			error: function(){
+				alert('잘못된 요청입니다.');
+			}
+		});
+	}
+	function restoreFetch(t) {
+		var parentTr = t.closest('tr');
+		var seq = t.closest('tr').children[0].textContent;
+		fetch('./restore.do?seqs='+seq)
+			.then(response => response.text())
+			.then(res => {
+				if(res === 'true') {
+					parentTr.remove();
+				}
+			})
+			.catch(err => alert("잘못된요청"));
+	}
+	function restoreAxios(t){
+		var parentTr = t.closest('tr');
+		var seq = t.closest('tr').children[0].textContent;
+		axios.get('./restore.do',{
+			params:{seqs:seq}
+		})
+			.then(response => {
+				console.log(response);
+				let data = response.data;
+				console.log(typeof data, data);
+				if(data === true){
+					console.log("삭제");
+					parentTr.remove();
+				}
+			})
+			.catch(error => console.log("잘못된 요청",err));
+	}
+</script>
 </html>
