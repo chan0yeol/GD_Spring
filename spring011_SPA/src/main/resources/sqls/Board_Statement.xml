@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.min.edu.mapper.BoardDaoImpl">
+	<select id="getAllBoardPage" resultType="com.min.edu.vo.BoardVo">
+		<![CDATA[
+			SELECT *
+				FROM (SELECT SEQ, ID,
+						LPAD(' ',6*5*"DEPTH"+1,'&nbsp;')||
+						CASE 
+							WHEN "DEPTH" > 0 THEN '<img src="./img/reply.png">'
+						END || TITLE AS TITLE,
+						CONTENT, "REF", STEP,
+						"DEPTH", REGDATE, DELFLAG,
+						ROW_NUMBER() OVER(ORDER BY REF DESC, STEP) RN
+						FROM ANSWERBOARD a
+		]]>
+						<if test='auth == "U"'>
+							WHERE DELFLAG = 'N'
+						</if>
+						)
+				WHERE RN BETWEEN #{first} AND #{last}
+	</select>
+	<select id="getAllBoardCount" resultType="int">
+		SELECT COUNT(*)
+			FROM ANSWERBOARD
+			<if test='auth == "U"'>
+				WHERE DELFLAG = 'N'
+			</if>
+	</select>
+	
+	<delete id="setBoardDelflag">
+		UPDATE ANSWERBOARD
+		SET DELFALG = 'Y'
+		WHERE SEQ = #{seq}
+	</delete>
+	
+	<select id="getOneBoard" resultType="com.min.edu.vo.BoardVo">
+		SELECT SEQ, ID, TITLE,
+		CONTENT, "REF", STEP,
+		"DEPTH", TO_CHAR(REGDATE,'YYYY-MM-DD HH:mi:ss') AS REGDATE,
+		DELFLAG
+		FROM ANSWERBOARD
+		WHERE SEQ = #{seq}
+	</select>
+	
+	<update id="setBoardUpdate">
+		UPDATE ANSWERBOARD
+		  SET TITLE = #{title}, CONTENT = #{content}
+		  WHERE SEQ = #{seq}	
+	</update>
+	
+	<update id="replyUpdate">
+		UPDATE ANSWERBOARD
+		SET STEP = STEP+1
+		WHERE REF =
+		(SELECT REF FROM ANSWERBOARD WHERE SEQ = #{seq})
+		AND STEP > (SELECT
+		STEP FROM ANSWERBOARD WHERE SEQ = #{seq})
+	</update>
+	<!-- 답글 입력 replyInsert -->
+	<insert id="replyInsert">
+		INSERT INTO ANSWERBOARD
+		(SEQ, ID, TITLE,
+		CONTENT, "REF", STEP,
+		"DEPTH", REGDATE)
+		VALUES ((SELECT NVL(MAX(SEQ),0)+1 FROM ANSWERBOARD),#{id},#{title},
+		#{content}, (SELECT REF FROM ANSWERBOARD WHERE SEQ = #{seq}),
+		(SELECT
+		STEP FROM ANSWERBOARD WHERE SEQ = #{seq})+1,
+		(SELECT "DEPTH" FROM
+		ANSWERBOARD WHERE SEQ = #{seq})+1,CURRENT_DATE )
+	</insert>
+</mapper>

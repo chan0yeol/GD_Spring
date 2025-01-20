@@ -25,9 +25,9 @@ public class SpringUtils {
 	public static void responseAlert(HttpServletResponse response,
 										String msg,
 										String url) throws IOException {
-		response.setContentType("text/html;charset=UTF-8");
+		response.setContentType("text/html;charset=UTF-8;");
 		PrintWriter out = response.getWriter();
-		out.printf("<script> alert(%s); location.href='./%s';</script>", msg, url);
+		out.println("<script> alert('"+msg+"'); location.href='./"+url+"';</script>");
 		out.flush();
 	}
 }

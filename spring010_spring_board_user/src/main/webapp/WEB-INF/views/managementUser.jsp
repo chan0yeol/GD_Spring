@@ -34,14 +34,14 @@
 			/*
 				jQuery로 form 데이터 값을 JSON으로 변경 -> JSON 문자열로 생성
 			*/
-			var jsonData = $("form").serializeArray(); // 배열로 가져옴
-			console.log("serializeArray() : ",jsonData , typeof jsonData);
-			var json = {};
-			jsonData.forEach((item) => {
-				json[item.name] = item.value;
-			});
-			console.log(typeof json, json);
-			console.log("json 문자열로 만들기", JSON.stringify(json));
+// 			var jsonData = $("form").serializeArray(); // 배열로 가져옴
+// 			console.log("serializeArray() : ",jsonData , typeof jsonData);
+// 			var json = {};
+// 			jsonData.forEach((item) => {
+// 				json[item.name] = item.value;
+// 			});
+// 			console.log(typeof json, json);
+// 			console.log("json 문자열로 만들기", JSON.stringify(json));
 			/*
 			 	javascript 로 form 데이터 값을 JSON으로 변경 -> JSON 문자열로 생성
 			*/
@@ -52,7 +52,7 @@
 				jsonData[key] = value;
 			});
 			console.log("javascript formData : ", jsonData , typeof jsonData);
-			var jsonStr = JSON.stringify(json);
+			var jsonStr = JSON.stringify(jsonData);
 			console.log("문자열로 출력 : ", jsonStr);
 			var strToJson = JSON.parse(jsonStr);
 			console.log("JSON 객체로 parse : ",strToJson);

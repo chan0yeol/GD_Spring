@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.min.edu.mapper.UserDaoImpl">
+	<select id="login" resultType="com.min.edu.vo.UserVo" parameterType="Map">
+		SELECT ID, NAME, AUTH, JOINDATE  
+		FROM BOARDUSER
+		WHERE ID=#{id} AND PASSWORD = #{password}
+	 	AND ENABLE = 'Y'
+	</select>
+</mapper>
