@@ -1,0 +1,9 @@
+라이브러리를 개발하여 Maven을 통한 Dependency 
+log4j -> logback
+JUnit Test =? JUnit + mocTest를 통한 GET/POST 요청 테스트
+properties를 읽는 객체 
+ㄴ> PropertySourcePlaceHolder => <context:property-placeholder>
+commons-dbcp => HikariConfig
+BasicDataSource -> HikariDataSource 
+jQuery Ajax => fetch Ajax 
+반환 Type => ResponseEntity 
