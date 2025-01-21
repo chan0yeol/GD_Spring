@@ -1,9 +1,11 @@
 package com.min.edu.ctrl;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import com.min.edu.service.IBoardService;
 import com.min.edu.vo.BoardVo;
 import com.min.edu.vo.PageVo;
 import com.min.edu.vo.UserVo;
+import com.util.spring.SpringUtils;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -54,7 +57,7 @@ public class BoardController {
 		
 		
 		pVo.setTotalCount(boardService.getAllBoardCount(map));
-		pVo.setCountList(5);
+		pVo.setCountList(10);
 		pVo.setCountPage(5);
 //		pVo.setTotalPage(pVo.getTotalCount());
 		pVo.setTotalPage(0);
@@ -71,5 +74,17 @@ public class BoardController {
 		model.addAttribute("lists",lists);
 		model.addAttribute("page",pVo);
 		return "boardList";
+	}
+	
+	@GetMapping("/boardDelete.do")
+	public String setBoardDelflag(String seq, HttpServletResponse response) throws IOException {
+		log.info("BoardController 글 삭제 : {}",seq);
+		int row = boardService.setBoardDelflag(seq);
+		if(row == 1) {
+			return "redirect:/boardList.do";
+		} else {
+			SpringUtils.responseAlert(response,"잘못된 삭제 요청", "logout.do");
+			return null;
+		}
 	}
 }

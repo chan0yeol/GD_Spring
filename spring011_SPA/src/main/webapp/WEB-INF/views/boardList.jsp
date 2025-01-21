@@ -14,6 +14,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="./js/boardListPage.js"></script>
+  <script type="text/javascript" src="./js/boardListEvent.js"></script>
   <style>
 	  table tbody tr:nth-child(even) td{
 	  	padding:5px;
@@ -76,18 +77,18 @@
 									<textarea class="form-control"rows="5" readonly="readonly">${vo.content}</textarea>
 									<div class="btn-group btn-group-justified">
 										<c:if test="${vo.id eq loginVo.id}">
-											<div class="btn-group ">
-												<button class="btn btn-info">수정</button>
+											<div class="btn-group">
+												<button class="btn btn-info" onclick="modify(${vo.seq})">수정</button>
 											</div>
 										</c:if>
 										<c:if test="${vo.id eq loginVo.id || loginVo.auth eq 'A'}">
 											<div class="btn-group ">
-												<button class="btn btn-danger">삭제</button>
+												<button class="btn btn-danger" onclick="del(${vo.seq})">삭제</button>
 											</div>
 										</c:if>
 										<c:if test="${loginVo.auth eq 'U'}">
 											<div class="btn-group ">
-												<button class="btn btn-default">답글</button>
+												<button class="btn btn-default" onclick="reply(${vo.seq})">답글</button>
 											</div>
 										</c:if>
 									</div>
