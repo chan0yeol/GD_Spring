@@ -45,7 +45,7 @@
 	
 	<update id="setBoardUpdate">
 		UPDATE ANSWERBOARD
-		  SET TITLE = #{title}, CONTENT = #{content}
+		  SET TITLE = #{title} , CONTENT = #{content}
 		  WHERE SEQ = #{seq}	
 	</update>
 	

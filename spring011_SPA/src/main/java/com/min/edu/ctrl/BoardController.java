@@ -77,14 +77,23 @@ public class BoardController {
 	}
 	
 	@GetMapping("/boardDelete.do")
-	public String setBoardDelflag(String seq, HttpServletResponse response) throws IOException {
+	public String setBoardDelflag(String seq, HttpServletResponse response, HttpSession session) throws IOException {
 		log.info("BoardController 글 삭제 : {}",seq);
-		int row = boardService.setBoardDelflag(seq);
-		if(row == 1) {
-			return "redirect:/boardList.do";
+		UserVo loginVo = (UserVo) session.getAttribute("loginVo");
+		BoardVo vo =  boardService.getOneBoard(seq);
+		if(loginVo.getId().equals(vo.getId()) || loginVo.getAuth().equals("A")) {
+			int row = boardService.setBoardDelflag(seq);
+			// 삭제되는 글의 소유자 및 권한을 확인하여 처리해줘야한다.
+			if(row == 1) {
+				return "redirect:/boardList.do";
+			} else {
+				SpringUtils.responseAlert(response,"잘못된 삭제 요청", "logout.do");
+				return null;
+			}
 		} else {
 			SpringUtils.responseAlert(response,"잘못된 삭제 요청", "logout.do");
 			return null;
 		}
+		
 	}
 }

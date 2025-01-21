@@ -121,19 +121,19 @@ var spa_ajax = (...args) => { // spread 표기법
 					
 					if(data.memId == v.id){
 					varHtml += "													<div class='btn-group '>                                                    "
-					varHtml += "														<button class='btn btn-info'>수정</button>                              "
+					varHtml += "														<button class='btn btn-info' onclick='modify("+v.seq+")'>수정</button>                              "
 					varHtml += "													</div>                                                                      "
 					}
 					
 					if(data.memId == v.id || n == 6) {
 					varHtml += "													<div class='btn-group '>                                                    "
-					varHtml += "														<button class='btn btn-danger'>삭제</button>                            "
+					varHtml += "														<button class='btn btn-danger' onclick='del("+v.seq+")'>삭제</button>                            "
 					varHtml += "													</div>                                                                      "
 					}					
 					
-					if(n == 6) {
+					if(n != 6) {
 					varHtml += "													<div class='btn-group '>                                                    "
-					varHtml += "														<button class='btn btn-default'>답글</button>                           "
+					varHtml += "														<button class='btn btn-default' onclick='reply("+v.seq+")'>답글</button>                           "
 					varHtml += "													</div>                                                                      "
 					}
 					

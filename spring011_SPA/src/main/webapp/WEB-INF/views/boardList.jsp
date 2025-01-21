@@ -125,6 +125,26 @@
 			</tfoot>
 		</table>
 	</div>
+	  <!-- Modal -->
+	  <div class="modal fade" id="modify" role="dialog">
+	    <div class="modal-dialog">
+	    
+	      <!-- Modal content-->
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">글수정</h4>
+	        </div>
+	        <div class="modal-body">
+	        	<form method="POST" id="frmModify">
+	        		
+				        		
+	        	</form>
+	        </div>
+	      </div>
+	      
+	    </div>
+  </div>
 </body>
 
 <script type="text/javascript">
@@ -132,6 +152,7 @@
 		console.log("클릭");
 		$(".collapse").on('show.bs.collapse', function(){
 			$(".collapse.in").collapse('hide');
+			$("tbody tr").css("background","white");
 		})
 	});
 </script>
