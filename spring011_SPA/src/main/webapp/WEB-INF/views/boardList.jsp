@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="./js/boardListPage.js"></script>
   <style>
 	  table tbody tr:nth-child(even) td{
 	  	padding:5px;
@@ -96,6 +97,31 @@
 					</tr>
 				</c:forEach>
 			</tbody>
+			<tfoot style="text-align:center;">
+				<tr>
+					<td colspan="${loginVo.auth eq 'A'?6:4}">
+						<ul class="pagination">
+							<c:if test="${page.stagePage > 1}">
+								<li href="#" onclick="firstPage()"><a><span class="glyphicon glyphicon-fast-backward"></span></a></li>
+							</c:if>
+							<c:if test="${page.stagePage - page.countPage >= 0}">
+								<li href="#" onclick="pagePrev(${page.stagePage},${page.countPage})"><a><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+							</c:if>
+							
+							<c:forEach var="i" begin="${page.stagePage}" end="${page.endPage}" step="1">
+							  <li ${page.page == i?"class=active":""}><a href="javascript:page(${i})">${i}</a></li>
+							</c:forEach>
+							
+							<c:if test="${page.page<page.totalPage}">
+								<c:if test="${page.stagePage+page.countPage < page.totalCount}">
+									<li><a href="#" onclick="pageNext(${page.stagePage},${page.countPage})"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+								</c:if>
+									<li><a href="#" onclick="pageLast(${page.totalPage})"><span class="glyphicon glyphicon-fast-forward"></span></a></li>
+							</c:if>
+						</ul>
+					</td>
+				</tr>
+			</tfoot>
 		</table>
 	</div>
 </body>

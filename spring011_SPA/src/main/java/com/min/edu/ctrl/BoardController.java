@@ -36,8 +36,8 @@ public class BoardController {
 		// TODO 009 Controller에서의 페이징처리
 		// 첫번째 요청의 글의 갯수
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("first", 1);
-		map.put("last", 5);
+//		map.put("first", 1);
+//		map.put("last", 5);
 		map.put("auth", loginVo.getAuth());
 		// 세션 정보에서 페이지 정보가 있다면 사용하고 처음이라면 세션 객체를 생성하여 유지
 		int selectPage = Integer.parseInt(page);
@@ -56,10 +56,13 @@ public class BoardController {
 		pVo.setTotalCount(boardService.getAllBoardCount(map));
 		pVo.setCountList(5);
 		pVo.setCountPage(5);
-		pVo.setTotalPage(pVo.getTotalCount());
+//		pVo.setTotalPage(pVo.getTotalCount());
+		pVo.setTotalPage(0);
 		pVo.setPage(selectPage);
-		pVo.setStagePage(selectPage);
-		pVo.setEndPage(pVo.getCountPage());
+//		pVo.setStagePage(selectPage);
+//		pVo.setEndPage(pVo.getCountPage());
+		pVo.setStagePage(0);
+		pVo.setEndPage(0);
 
 		map.put("first", pVo.getPage()*pVo.getCountList()-(pVo.getCountList()-1));
 		map.put("last", pVo.getPage()*pVo.getCountList());

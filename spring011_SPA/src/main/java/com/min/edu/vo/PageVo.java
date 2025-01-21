@@ -55,14 +55,16 @@ public class PageVo {
 	public int getStagePage() {
 		return stagePage;
 	}
+	
 	public void setStagePage(int stagePage) {
-		int stagePageResult = ((page-1/countPage)*countPage+1);
-		this.stagePage = stagePageResult;
+		int stagePageRes = ((page - 1) / countPage) * countPage + 1;
+		this.stagePage = stagePageRes;
 	}
 	
 	public int getEndPage() {
 		return endPage;
 	}
+	
 	public void setEndPage(int endPage) {
 		int endPageResult = stagePage+countPage-1;
 		if(endPageResult > totalPage) {
