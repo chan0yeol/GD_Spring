@@ -30,7 +30,7 @@
 	
 	<delete id="setBoardDelflag">
 		UPDATE ANSWERBOARD
-		SET DELFALG = 'Y'
+		SET DELFLAG = 'Y'
 		WHERE SEQ = #{seq}
 	</delete>
 	

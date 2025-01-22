@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
   <script type="text/javascript" src="./js/boardListPage.js"></script>
   <script type="text/javascript" src="./js/boardListEvent.js"></script>
   <style>
@@ -137,17 +138,46 @@
 	        </div>
 	        <div class="modal-body">
 	        	<form method="POST" id="frmModify">
-	        		
-				        		
+	        	
 	        	</form>
 	        </div>
 	      </div>
 	      
 	    </div>
   </div>
+  <div class="modal fade" id="reply" role="dialog">
+	    <div class="modal-dialog">
+	    
+	      <!-- Modal content-->
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">답글작성</h4>
+	        </div>
+	        <div class="modal-body">
+	        	<form method="POST" id="frmReply">
+	        		
+	        	</form>
+	        	
+	        </div>
+	      </div>
+	      
+	    </div>
+  </div>
+  <hr>
+      	<div id="handleBars"></div>
+      	<script id="hand" type="text/x-handlebars-template">
+	        	<div>
+	        		{{name}}
+	        	</div>
+				</script>
 </body>
 
 <script type="text/javascript">
+	var hand = document.getElementById('hand').innerHTML;
+	var template = Handlebars.compile(hand);
+	var html = template({name:"aaa~~~"});
+	document.getElementById('handleBars').innerHTML = html;
 	$("table").click(function(){
 		console.log("클릭");
 		$(".collapse").on('show.bs.collapse', function(){
