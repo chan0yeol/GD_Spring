@@ -29,6 +29,44 @@ public class BoardController {
 	
 	private final IBoardService boardService;
 	
+	@GetMapping("/boardListHandleBar.do")
+	public String boardListHandleBar(Model model, HttpSession session,
+			@RequestParam(defaultValue = "1", required = false) String page) {
+		UserVo loginVo = (UserVo)session.getAttribute("loginVo");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("auth", loginVo.getAuth());
+		int selectPage = Integer.parseInt(page);
+		log.info("현재 페이지 : {}", selectPage);
+		PageVo pVo = null;
+		if(session.getAttribute("row") == null) {
+			pVo = new PageVo();
+			session.setAttribute("row", pVo);
+		} else {
+			pVo = (PageVo)session.getAttribute("row");
+			page = String.valueOf(pVo.getPage());
+		}
+		
+		pVo.setTotalCount(boardService.getAllBoardCount(map));
+		pVo.setCountList(10);
+		pVo.setCountPage(5);
+//		pVo.setTotalPage(pVo.getTotalCount());
+		pVo.setTotalPage(0);
+		pVo.setPage(selectPage);
+//		pVo.setStagePage(selectPage);
+//		pVo.setEndPage(pVo.getCountPage());
+		pVo.setStagePage(0);
+		pVo.setEndPage(0);
+
+		map.put("first", pVo.getPage()*pVo.getCountList()-(pVo.getCountList()-1));
+		map.put("last", pVo.getPage()*pVo.getCountList());
+		log.info("[page] pVo : {}", pVo);
+		List<BoardVo> lists = boardService.getAllBoardPage(map);
+		model.addAttribute("lists",lists);
+		model.addAttribute("page",pVo);
+		
+		return "boardListHandleBar";
+	}
+	
 	@GetMapping("/boardList.do")
 	public String boardList(Model model, HttpSession session,
 							@RequestParam(defaultValue = "1", required = false) String page) {

@@ -52,7 +52,7 @@ public class RestBoardListPageController {
 		res_map.put("row", pVo);
 		// javascript에서 session의 값을 처리하지 못하기 때문에 값으로 id만을 전송함.
 		res_map.put("memId", loginVo.getId());
-		
+		res_map.put("auth", loginVo.getAuth());
 		return res_map; 
 	}
 }
