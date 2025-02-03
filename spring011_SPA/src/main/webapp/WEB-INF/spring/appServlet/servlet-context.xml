@@ -28,7 +28,7 @@
 			<mvc:exclude-mapping path="/login.do"/>
 			<bean class="com.min.edu.intercepter.LoginCheckIntercepter"/>
 		</mvc:interceptor>
-		<!-- TODO 01202 cache삭제 객체-->
+		<!-- TODO 01202 cache삭제 Bean 객체-->
 		<bean class="org.springframework.web.servlet.mvc.WebContentInterceptor">
 			<property name="cacheSeconds" value="0"/>
 			<property name="useExpiresHeader" value="true"/>

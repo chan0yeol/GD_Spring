@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<!-- TODO 013 config Alias, Mapper 연결 -->
+	<typeAliases>
+		<typeAlias type="com.min.edu.vo.UserVo" alias="UserVo"/>
+	</typeAliases>	
+	<mappers>
+		<mapper resource="sql/User_Statement.xml"/>
+	</mappers>
+</configuration>
