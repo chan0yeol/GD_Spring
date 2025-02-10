@@ -1,0 +1,31 @@
+
+Tomcat
+ ㄴ server.xml
+ ㄴ context.xml
+ 설정
+ - server.xml
+	ㄴ emptySessionPath="true" 추가
+ <Connector port="8080" protocol="HTTP/1.1"
+           connectionTimeout="20000"
+           redirectPort="8443"
+           maxParameterCount="1000"
+	emptySessionPath="true"
+           /> 
+           
+- context.xml
+  ㄴ crossContext="true" 추가
+	<Context crossContext="true">
+	
+	
+세션을 담는 곳 (ex >/Root/로그인 등)
+request.getSession().getServletContext().setAttribuet("loginDto",loginDto)
+
+
+다른 context에서 session(application)을 사용하는 (ex > /sub/)
+	ㄴ LoginDto loginDto = (LoginDto)request.getSession().getServletContext().getContext("/root").getAttribute("loginDto");
+
+	*** 유의할점 
+	당연히 EL을 통해 다른 Context 값을 호출할 수 없다.
+	Controller 에서 Session을 해당 Context의 Scope값을 변경해서 사용해야 한다.
+	ServletContext()는 application 이기 때문에 ${applicationScope.loginDto}
+	
